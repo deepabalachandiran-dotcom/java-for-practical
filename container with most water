@@ -1,0 +1,33 @@
+public class Solution {
+    public int maxArea(int[] height) {
+        int maxArea = 0;
+        int left = 0;
+        int right = height.length - 1;
+
+        while (left < right) {
+            // Calculate width and height of the container
+            int width = right - left;
+            int currentHeight = Math.min(height[left], height[right]);
+            
+            // Calculate current area and update maxArea
+            int currentArea = width * currentHeight;
+            maxArea = Math.max(maxArea, currentArea);
+
+            // Move the pointer pointing to the shorter line inward
+            if (height[left] < height[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return maxArea;
+    }
+}
+o/p:
+Input
+height =
+[1,8,6,2,5,4,8,3,7]
+Output
+49
+Expected
+49
