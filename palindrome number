@@ -1,0 +1,33 @@
+class Solution {
+    public boolean isPalindrome(int x) {
+        // Special cases:
+        // 1. Negative numbers are not palindromes (e.g., -121 reads as 121- backwards).
+        // 2. Numbers ending in 0 (except 0 itself) cannot be palindromes (e.g., 10 reads as 01 backwards).
+        if (x < 0 || (x % 10 == 0 && x != 0)) {
+            return false;
+        }
+
+        int revertedNumber = 0;
+        while (x > revertedNumber) {
+            // Extract the last digit of x and append it to the end of revertedNumber.
+            revertedNumber = revertedNumber * 10 + x % 10;
+            // Remove the last digit from x.
+            x /= 10;
+        }
+
+        // When the loop finishes, we've processed half the digits.
+        // If the number has an even number of digits, x should equal revertedNumber.
+        // If the number has an odd number of digits, the middle digit is in the
+        // middle of x (e.g., for 121, x is 1 and revertedNumber is 21).
+        // We can ignore the middle digit by dividing revertedNumber by 10.
+        return x == revertedNumber || x == revertedNumber / 10;
+    }
+}
+o/p;
+Input
+x =
+121
+Output
+true
+Expected
+true
