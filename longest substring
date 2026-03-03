@@ -1,0 +1,37 @@
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int n = s.length();
+        int ans = 0;
+        // Map to store the last seen index of each character
+        Map<Character, Integer> map = new HashMap<>();
+        // Left pointer of the sliding window
+        int left = 0;
+
+        // Right pointer iterates through the string
+        for (int right = 0; right < n; right++) {
+            char currentChar = s.charAt(right);
+
+            // If the character is already in the map and its index is within the current window (>= left)
+            if (map.containsKey(currentChar) && map.get(currentChar) >= left) {
+                // Move the left pointer to the position right after the last occurrence of the duplicate
+                left = map.get(currentChar) + 1;
+            }
+
+            // Update the map with the current index of the character
+            map.put(currentChar, right);
+
+            // Update the maximum length found so far
+            ans = Math.max(ans, right - left + 1);
+        }
+
+        return ans;
+    }
+}
+o/p:
+Input
+s =
+"abcabcbb"
+Output
+3
+Expected
+3
