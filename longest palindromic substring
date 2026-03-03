@@ -1,0 +1,42 @@
+class Solution {
+    private int low, maxLen; // Variables to store the start index and maximum length
+
+    public String longestPalindrome(String s) {
+        if (s == null || s.length() < 2) {
+            return s;
+        }
+
+        for (int i = 0; i < s.length(); i++) {
+            // Expand around center for odd-length palindromes (e.g., "aba")
+            expandAroundCenter(s, i, i);
+            // Expand around center for even-length palindromes (e.g., "abba")
+            expandAroundCenter(s, i, i + 1);
+        }
+
+        // Return the longest palindromic substring found
+        return s.substring(low, low + maxLen);
+    }
+
+    private void expandAroundCenter(String s, int left, int right) {
+        // Expand as long as the characters match and are within bounds
+        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+            left--;
+            right++;
+        }
+
+        // Calculate the length of the palindrome found
+        int currentLen = right - left - 1;
+
+        // Update the start index and max length if the current palindrome is longer
+        if (currentLen > maxLen) {
+            maxLen = currentLen;
+            low = left + 1;
+        }
+    }
+}
+o/p:
+Input
+s =
+"babad"
+Output
+"bab"
